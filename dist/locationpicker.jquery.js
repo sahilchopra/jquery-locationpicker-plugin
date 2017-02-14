@@ -101,28 +101,126 @@
                 }
             });
         },
-        address_component_from_google_geocode: function(address_components) {
+//         address_component_from_google_geocode: function(address_components) {
+//             var result = {};
+//             for (var i = address_components.length - 1; i >= 0; i--) {
+//                 var component = address_components[i];
+//                 if (component.types.indexOf("postal_code") >= 0) {
+//                     result.postalCode = component.short_name;
+//                 } else if (component.types.indexOf("street_number") >= 0) {
+//                     result.streetNumber = component.short_name;
+//                 } else if (component.types.indexOf("route") >= 0) {
+//                     result.streetName = component.short_name;
+//                 } else if (component.types.indexOf("locality") >= 0) {
+//                     result.city = component.short_name;
+//                 } else if (component.types.indexOf("sublocality") >= 0) {
+//                     result.district = component.short_name;
+//                 } else if (component.types.indexOf("administrative_area_level_1") >= 0) {
+//                     result.stateOrProvince = component.short_name;
+//                 } else if (component.types.indexOf("country") >= 0) {
+//                     result.country = component.short_name;
+//                 }
+//             }
+//             result.addressLine1 = [ result.streetNumber, result.streetName ].join(" ").trim();
+//             result.addressLine2 = "";
+//             return result;
+//         }
+        address_component_from_google_geocode: function (address_components) {
             var result = {};
             for (var i = address_components.length - 1; i >= 0; i--) {
                 var component = address_components[i];
-                if (component.types.indexOf("postal_code") >= 0) {
-                    result.postalCode = component.short_name;
-                } else if (component.types.indexOf("street_number") >= 0) {
-                    result.streetNumber = component.short_name;
-                } else if (component.types.indexOf("route") >= 0) {
-                    result.streetName = component.short_name;
-                } else if (component.types.indexOf("locality") >= 0) {
-                    result.city = component.short_name;
-                } else if (component.types.indexOf("sublocality") >= 0) {
-                    result.district = component.short_name;
-                } else if (component.types.indexOf("administrative_area_level_1") >= 0) {
-                    result.stateOrProvince = component.short_name;
-                } else if (component.types.indexOf("country") >= 0) {
-                    result.country = component.short_name;
+                switch (component.types[0]) {
+                    case 'street_address':
+                        result.street_address = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'route':
+                        result.route = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'intersection':
+                        result.intersection = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'political':
+                        result.political = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'country':
+                        result.country = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'administrative_area_level_1':
+                        result.administrative_area_level_1 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'administrative_area_level_2':
+                        result.administrative_area_level_2 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'administrative_area_level_3':
+                        result.administrative_area_level_3 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'administrative_area_level_4':
+                        result.administrative_area_level_4 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'administrative_area_level_5':
+                        result.administrative_area_level_5 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'colloquial_area':
+                        result.colloquial_area = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'locality':
+                        result.locality = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'sublocality':
+                        result.sublocality = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'sublocality_level_1':
+                        result.sublocality_level_1 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'sublocality_level_2':
+                        result.sublocality_level_2 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'sublocality_level_3':
+                        result.sublocality_level_3 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'sublocality_level_4':
+                        result.sublocality_level_4 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'sublocality_level_5':
+                        result.sublocality_level_5 = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'neighborhood':
+                        result.neighborhood = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'premise':
+                        result.premise = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'subpremise':
+                        result.subpremise = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'postal_code':
+                        result.postal_code = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'natural_feature':
+                        result.natural_feature = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'airport':
+                        result.airport = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'park':
+                        result.park = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'post_box':
+                        result.post_box = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'street_number':
+                        result.street_number = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'floor':
+                        result.floor = { short_name: component.short_name, long_name: component.long_name };
+                        break;
+                    case 'room':
+                        result.room = { short_name: component.short_name, long_name: component.long_name };
+                        break;
                 }
             }
-            result.addressLine1 = [ result.streetNumber, result.streetName ].join(" ").trim();
-            result.addressLine2 = "";
+            result.addressLine1 = [result.street_number.long_name, result.route.long_name].join(' ').trim();
+            result.addressLine2 = '';
             return result;
         }
     };
